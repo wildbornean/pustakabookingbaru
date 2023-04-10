@@ -48,3 +48,4 @@ Datang <b><?= $user; ?></b></span>
     </div>
 </nav>
  <div class="container mt-5">
+ <a class="nav-item nav-link" href="<?= base_url('booking'); ?>">Booking <b><?= $this->ModelBooking->getDataWhere('temp', ['email_user' => $this->session->userdata('email')])->num_rows(); ?></b> Buku</a>
