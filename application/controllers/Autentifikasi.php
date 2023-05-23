@@ -38,6 +38,7 @@ class Autentifikasi extends CI_Controller
 
         //jika usernya ada
         if ($user) {
+          if ($user['role_id'] == 1) {
             //jika user sudah aktif
             if ($user['is_active'] == 1) {
                 //cek password
@@ -57,11 +58,16 @@ class Autentifikasi extends CI_Controller
                 $this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-message" role="alert">User belum diaktifasi!!</div>');
                 redirect('autentifikasi');
             }
+          } else {
+              $this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-message" role="alert">Anda Tidak Dizinkan!!</div>');
+              redirect('autentifikasi');
+          }
         } else {
             $this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-message" role="alert">Email tidak terdaftar!!</div>');
             redirect('autentifikasi');
         }
     }
+
 
     public function registrasi()
     {
@@ -71,7 +77,7 @@ class Autentifikasi extends CI_Controller
         //membuat rule untuk inputan nama agar tidak boleh kosong dengan membuat pesan error dengan 
         //bahasa sendiri yaitu 'Nama Belum diisi'
         $this->form_validation->set_rules('nama', 'Nama Lengkap', 'required', [
-            'required' => 'Nama Belum diis!!'
+            'required' => 'Nama Belum diisi!!'
         ]);
         //membuat rule untuk inputan email agar tidak boleh kosong, tidak ada spasi, format email harus valid
         //dan email belum pernah dipakai sama user lain dengan membuat pesan error dengan bahasa sendiri 
